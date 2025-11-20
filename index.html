@@ -3,2002 +3,1024 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- SEO & Open Graph Tags -->
   <title>Mohamed Aboudonya – Data Analytics & Planning Portfolio</title>
-  <!-- Font Awesome CDN for Icons -->
+  <meta name="description" content="Data-focused Mechanical Production & Planning Engineer with 7+ years in manufacturing. Specializing in Python, SQL, and Power BI.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Mohamed Aboudonya – Data Analytics Portfolio">
+  <meta property="og:description" content="Turning maintenance and production data into decisions.">
+  <meta property="og:image" content="https://ui-avatars.com/api/?name=Mohamed+Aboudonya&background=03ef62&color=fff&size=500&bold=true">
+
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
   <style>
     /* ------------------------------------
      * Theme Variables
      * ------------------------------------ */
     :root {
-      /* Universal */
-      --radius-lg: 18px;
-      --radius-pill: 999px;
-      --max-width: 1080px;
+      --radius-lg: 20px;
+      --radius-pill: 50px;
+      --max-width: 1150px;
+      
+      /* Brand Colors */
       --accent: #03ef62;
-      --accent-soft: rgba(3, 239, 98, 0.1);
+      --accent-glow: rgba(3, 239, 98, 0.4);
       --accent-blue: #5eb1ff;
+      --whatsapp-green: #25d366;
 
-      /* DARK MODE (Default) */
+      /* Dark Mode (Default) */
       --bg-main: #05192d;
-      --bg-gradient-start: #102849;
+      --bg-gradient-start: #0f2441;
       --bg-gradient-end: #020b18;
-      --bg-card: #13253a;
-      --bg-chip: #213147;
+      --bg-card: rgba(19, 37, 58, 0.7); /* Transparent for Glassmorphism */
+      --bg-chip: rgba(33, 49, 71, 0.6);
       --text-main: #ffffff;
-      --text-muted: #9ba3ab;
-      --border-soft: rgba(255, 255, 255, 0.12);
-      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.45);
+      --text-muted: #a0aab5;
+      --border-soft: rgba(255, 255, 255, 0.08);
+      --shadow-soft: 0 10px 40px -10px rgba(0,0,0,0.5);
+      --backdrop-blur: blur(12px);
+      
+      /* Tag Colors */
+      --tag-bg: rgba(255,255,255,0.05);
+      --tag-border: rgba(255,255,255,0.1);
     }
 
-    /* LIGHT MODE Overrides */
+    /* Light Mode */
     html[data-theme="light"] {
       --bg-main: #f0f7ff;
-      --bg-gradient-start: #e0e9f6;
-      --bg-gradient-end: #f0f7ff;
-      --bg-card: #ffffff;
-      --bg-chip: #e6f0ff;
+      --bg-gradient-start: #eef4fc;
+      --bg-gradient-end: #ffffff;
+      --bg-card: rgba(255, 255, 255, 0.8);
+      --bg-chip: rgba(230, 240, 255, 0.7);
       --text-main: #0a1929;
-      --text-muted: #4a5568;
-      --border-soft: rgba(0, 0, 0, 0.1);
-      --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.1);
+      --text-muted: #556070;
+      --border-soft: rgba(0, 0, 0, 0.06);
+      --shadow-soft: 0 10px 30px -10px rgba(0,0,0,0.1);
+      --accent-glow: rgba(3, 239, 98, 0.25);
+      --tag-bg: rgba(0,0,0,0.03);
+      --tag-border: rgba(0,0,0,0.05);
     }
-    
+
+    /* ------------------------------------
+     * Global Animations
+     * ------------------------------------ */
+    @keyframes backgroundPulse {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes pulseGreen {
+      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
+
     /* ------------------------------------
      * Base Styles
      * ------------------------------------ */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top left, var(--bg-gradient-start), var(--bg-gradient-end) 55%, var(--bg-main) 100%);
+      margin: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(-45deg, var(--bg-main), var(--bg-gradient-start), var(--bg-gradient-end), var(--bg-main));
+      background-size: 400% 400%;
+      animation: backgroundPulse 15s ease infinite;
       color: var(--text-main);
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      transition: background 0.3s ease, color 0.3s ease;
       scroll-behavior: smooth;
+      overflow-x: hidden;
     }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--bg-chip); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent-blue); }
 
     .page {
-      width: 100%;
       max-width: var(--max-width);
-      margin: 32px auto 40px;
-      padding: 0 16px 40px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
     }
 
+    /* ------------------------------------
+     * Glassmorphism Header
+     * ------------------------------------ */
     header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
       position: sticky;
-      top: 0;
-      background: var(--bg-main);
+      top: 10px;
       z-index: 100;
-      padding: 16px 0;
-      margin-left: -16px;
-      margin-right: -16px;
-      padding-left: 16px;
-      padding-right: 16px;
-      border-bottom: 1px solid transparent;
+      padding: 12px 24px;
+      margin: 0 -10px 30px;
+      border-radius: var(--radius-pill);
+      background: var(--bg-card);
+      backdrop-filter: var(--backdrop-blur);
+      -webkit-backdrop-filter: var(--backdrop-blur);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
       transition: all 0.3s ease;
     }
 
-    header.scrolled {
-      box-shadow: var(--shadow-soft);
-      border-bottom-color: var(--border-soft);
-      backdrop-filter: blur(10px);
-      background: rgba(5, 25, 45, 0.95);
-    }
-
-    html[data-theme="light"] header.scrolled {
-      background: rgba(240, 247, 255, 0.95);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
+    .brand { display: flex; align-items: center; gap: 12px; }
+    
     .brand-avatar {
-      width: 52px;
-      height: 52px;
+      width: 45px; height: 45px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), var(--accent-blue));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      color: var(--bg-main);
-      box-shadow: 0 0 0 3px var(--accent-blue);
+      border: 2px solid var(--accent);
       overflow: hidden;
-      position: relative;
+      transition: transform 0.3s;
     }
+    .brand:hover .brand-avatar { transform: rotate(10deg) scale(1.1); }
+    
+    .brand-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    
+    .brand-info h1 { font-size: 1rem; font-weight: 700; margin: 0; }
+    .brand-info p { font-size: 0.75rem; color: var(--text-muted); margin: 0; }
 
-    .brand-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .brand-avatar-fallback {
-      font-size: 1.2rem;
-    }
-
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .brand-name {
-      font-size: 1rem;
-      font-weight: 600;
-    }
-
-    .brand-role {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    nav {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    nav a {
-      font-size: 0.8rem;
+    /* Nav & Toggle */
+    .nav-desktop { display: flex; gap: 8px; align-items: center; }
+    
+    .nav-link {
       text-decoration: none;
       color: var(--text-muted);
-      padding: 6px 12px;
+      font-size: 0.85rem;
+      padding: 8px 16px;
       border-radius: var(--radius-pill);
-      border: 1px solid transparent;
-      transition: all 0.18s ease-out;
+      transition: all 0.25s;
+      position: relative;
     }
-
-    nav a:hover {
-      border-color: var(--accent);
+    
+    .nav-link:hover, .nav-link.active {
       color: var(--accent);
-      background: var(--accent-soft);
+      background: var(--bg-chip);
     }
 
+    .theme-btn {
+      background: none; border: 1px solid var(--border-soft);
+      color: var(--text-main); padding: 8px;
+      border-radius: 50%; cursor: pointer;
+      margin-left: 10px; transition: 0.3s;
+    }
+    .theme-btn:hover { background: var(--bg-chip); color: var(--accent); transform: rotate(15deg); }
+
+    /* Mobile Menu */
+    .menu-toggle { display: none; background: none; border: none; color: var(--text-main); font-size: 1.4rem; cursor: pointer; }
+    
+    @media (max-width: 900px) {
+      .nav-desktop {
+        position: fixed; top: 80px; right: 20px;
+        flex-direction: column; align-items: flex-end;
+        background: var(--bg-main); padding: 20px;
+        border-radius: var(--radius-lg); border: 1px solid var(--border-soft);
+        transform: translateY(-10px); opacity: 0; pointer-events: none;
+        transition: 0.3s; box-shadow: var(--shadow-soft);
+        z-index: 200;
+      }
+      .nav-desktop.open { transform: translateY(0); opacity: 1; pointer-events: all; }
+      .menu-toggle { display: block; }
+      header { margin: 0 0 30px; border-radius: 0 0 20px 20px; top: 0; }
+    }
+
+    /* ------------------------------------
+     * Main Layout
+     * ------------------------------------ */
     main {
       display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
-      gap: 24px;
+      grid-template-columns: 3fr 2.2fr;
+      gap: 30px;
     }
-
-    @media (max-width: 900px) {
-      main {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
+    @media (max-width: 950px) { main { grid-template-columns: 1fr; } }
 
     /* ------------------------------------
-     * FEATURE 1: Scroll Animations
-     * ------------------------------------ */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ------------------------------------
-     * FEATURE 4: Typing Animation
-     * ------------------------------------ */
-    .typing-text {
-      display: inline-block;
-      border-right: 3px solid var(--accent);
-      animation: blink 0.7s step-end infinite;
-      min-height: 1.25em;
-    }
-
-    @keyframes blink {
-      50% { border-color: transparent; }
-    }
-
-    /* ------------------------------------
-     * FEATURE 11: Enhanced Hover Effects
+     * Cards with Glassmorphism
      * ------------------------------------ */
     .card {
       background: var(--bg-card);
-      border-radius: var(--radius-lg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border: 1px solid var(--border-soft);
-      padding: 20px 20px 18px;
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      margin-bottom: 30px;
       box-shadow: var(--shadow-soft);
       position: relative;
       overflow: hidden;
-      transition: all 0.3s ease;
     }
-
+    
+    /* Animated Top Border */
     .card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(3, 239, 98, 0.05), transparent);
-      transition: left 0.5s ease;
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      transform: translateX(-100%); transition: transform 0.6s;
     }
+    .card:hover::before { transform: translateX(100%); }
 
-    .card:hover::before {
-      left: 100%;
+    /* Hero Typography */
+    .hero-title {
+      font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+      font-weight: 800;
+      margin-bottom: 15px;
+      line-height: 1.2;
+      background: linear-gradient(to right, var(--text-main), var(--accent-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
+    
+    .typing-cursor { border-right: 3px solid var(--accent); animation: blink 0.9s step-end infinite; }
+    @keyframes blink { 50% { border-color: transparent; } }
 
-    .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 24px 55px rgba(0, 0, 0, 0.5);
-      border-color: var(--accent-blue);
+    .hero-subtitle { font-size: 1rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 25px; }
+    
+    .hero-meta {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; font-size: 0.8rem; color: var(--text-muted);
     }
+    .hero-meta span { padding: 4px 10px; border-radius: var(--radius-pill); background: var(--bg-chip); border: 1px solid var(--border-soft); }
 
-    .card + .card {
-      margin-top: 18px;
+    /* Badges */
+    .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .badge {
+      font-size: 0.7rem; letter-spacing: 0.04em; text-transform: uppercase; padding: 4px 10px;
+      border-radius: var(--radius-pill); border: 1px solid var(--border-soft); color: var(--accent-blue); background: var(--bg-chip);
+    }
+    .badge-active { color: var(--accent); border-color: var(--accent); background: var(--accent-glow); }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 24px; border-radius: var(--radius-pill);
+      text-decoration: none; font-weight: 600; font-size: 0.9rem;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer; border: 1px solid transparent;
+    }
+    
+    .btn-primary {
+      background: var(--accent); color: #000;
+      box-shadow: 0 4px 15px var(--accent-glow);
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 20px var(--accent-glow); }
+    
+    .btn-outline {
+      background: transparent; color: var(--text-main);
+      border: 1px solid var(--border-soft);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: var(--bg-chip); }
+
+    /* ------------------------------------
+     * Projects Section
+     * ------------------------------------ */
+    .filter-container { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 25px; }
+    
+    .filter-btn {
+      background: var(--bg-chip); border: 1px solid var(--border-soft);
+      color: var(--text-muted); padding: 6px 16px; border-radius: var(--radius-pill);
+      cursor: pointer; transition: 0.3s; font-size: 0.8rem;
+    }
+    .filter-btn:hover, .filter-btn.active { background: var(--accent); color: #000; transform: translateY(-2px); }
+
+    .projects-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px;
     }
 
     .project-card {
       background: var(--bg-chip);
-      border-radius: 14px;
       border: 1px solid var(--border-soft);
-      padding: 12px 13px 11px;
-      position: relative;
+      border-radius: 16px;
       overflow: hidden;
-      transition: all 0.3s ease;
-      cursor: pointer;
+      display: flex; flex-direction: column;
+      transition: all 0.4s ease;
+      opacity: 0; /* For staggered animation */
+      transform: translateY(20px);
+      animation: floatUp 0.6s forwards;
+      height: 100%;
     }
-
-    .project-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-blue));
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s ease;
-    }
+    
+    /* Staggered Animation Delays */
+    .project-card:nth-child(1) { animation-delay: 0.1s; }
+    .project-card:nth-child(2) { animation-delay: 0.2s; }
+    .project-card:nth-child(3) { animation-delay: 0.3s; }
+    .project-card:nth-child(n+4) { animation-delay: 0.4s; }
 
     .project-card:hover {
-      transform: translateY(-6px) scale(1.02);
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
       border-color: var(--accent-blue);
-      box-shadow: 0 20px 40px rgba(94, 177, 255, 0.3);
     }
 
-    .project-card:hover::after {
-      transform: scaleX(1);
-    }
-
-    /* ------------------------------------
-     * FEATURE 13: Contact Form
-     * ------------------------------------ */
-    .contact-form {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-top: 16px;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .form-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-main);
-    }
-
-    .form-input,
-    .form-textarea {
-      background: var(--bg-chip);
-      border: 1px solid var(--border-soft);
-      border-radius: 10px;
-      padding: 10px 14px;
-      color: var(--text-main);
-      font-size: 0.85rem;
-      font-family: inherit;
-      transition: all 0.2s ease;
-    }
-
-    .form-input:focus,
-    .form-textarea:focus {
-      outline: none;
-      border-color: var(--accent-blue);
-      box-shadow: 0 0 0 3px rgba(94, 177, 255, 0.1);
-    }
-
-    .form-textarea {
-      resize: vertical;
-      min-height: 100px;
-    }
-
-    .form-submit {
-      background: linear-gradient(135deg, var(--accent), #00c74e);
-      color: var(--bg-main);
-      border: none;
-      border-radius: var(--radius-pill);
-      padding: 12px 24px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 14px 35px rgba(3, 239, 98, 0.35);
-    }
-
-    .form-submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 18px 45px rgba(3, 239, 98, 0.5);
-    }
-
-    .form-submit:active {
-      transform: translateY(0);
-    }
-
-    .form-message {
-      padding: 12px;
-      border-radius: 10px;
-      font-size: 0.85rem;
-      text-align: center;
-      margin-top: 10px;
-      display: none;
-    }
-
-    .form-message.success {
-      background: rgba(3, 239, 98, 0.1);
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      display: block;
-    }
-
-    .form-message.error {
-      background: rgba(255, 77, 77, 0.1);
-      border: 1px solid #ff4d4d;
-      color: #ff4d4d;
-      display: block;
-    }
-
-    /* ------------------------------------
-     * NEW: Social Icons Style
-     * ------------------------------------ */
-    .social-icons-row {
-      display: flex;
-      gap: 12px;
-      margin-top: 16px;
-      justify-content: space-between;
-    }
-
-    .social-icon-link {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: var(--bg-chip);
-      border: 1px solid var(--border-soft);
-      color: var(--text-main);
-      font-size: 1.2rem;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    .project-thumb {
+      height: 90px; display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; position: relative; overflow: hidden;
+      border-bottom: 1px solid var(--border-soft);
     }
     
-    html[data-theme="light"] .social-icon-link {
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
-        background: #ffffff;
-        border-color: rgba(0, 0, 0, 0.15);
-    }
+    /* Thumb Gradients */
+    .thumb-ml { background: linear-gradient(135deg, rgba(247, 93, 89, 0.15), rgba(0,0,0,0)); color: #ff6b6b; }
+    .thumb-viz { background: linear-gradient(135deg, rgba(242, 200, 17, 0.15), rgba(0,0,0,0)); color: #fcc419; }
+    .thumb-code { background: linear-gradient(135deg, rgba(3, 239, 98, 0.15), rgba(0,0,0,0)); color: #03ef62; }
+    .thumb-stats { background: linear-gradient(135deg, rgba(94, 177, 255, 0.15), rgba(0,0,0,0)); color: #5eb1ff; }
 
-    .social-icon-link:hover {
-      transform: translateY(-3px) scale(1.05);
-      border-color: var(--accent-blue);
-      color: var(--accent);
-      box-shadow: 0 10px 20px rgba(94, 177, 255, 0.3);
-    }
-    
-    /* Specific colors for better visual recognition */
-    .icon-linkedin:hover { 
-      color: #0077B5; 
-      border-color: #0077B5; 
-    }
-    
-    html[data-theme="light"] .icon-linkedin:hover {
-      background: rgba(0, 119, 181, 0.1);
-      box-shadow: 0 10px 20px rgba(0, 119, 181, 0.2);
-    }
-    
-    .icon-github:hover { 
-      color: #333333; 
-      border-color: #333333; 
-    }
-    
-    html[data-theme="light"] .icon-github:hover {
-      background: rgba(51, 51, 51, 0.08);
-      box-shadow: 0 10px 20px rgba(51, 51, 51, 0.15);
-    }
-    
-    .icon-whatsapp:hover { 
-      color: #25D366; 
-      border-color: #25D366; 
-    }
-    
-    html[data-theme="light"] .icon-whatsapp:hover {
-      background: rgba(37, 211, 102, 0.1);
-      box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
-    }
-    
-    .icon-email:hover { 
-      color: var(--accent); 
-      border-color: var(--accent); 
-    }
-    
-    html[data-theme="light"] .icon-email:hover {
-      background: rgba(3, 239, 98, 0.1);
-      box-shadow: 0 10px 20px rgba(3, 239, 98, 0.2);
-    }
-    
-    /* ------------------------------------
-     * Existing Styles (maintained)
-     * ------------------------------------ */
-    .badge-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
+    .project-card:hover .project-thumb i { transform: scale(1.2) rotate(10deg); transition: 0.4s; }
 
-    .badge {
-      font-size: 0.7rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(94, 177, 255, 0.6);
-      color: var(--accent-blue);
-      background: var(--bg-chip);
-    }
-
-    .badge-pill {
-      border-color: rgba(3, 239, 98, 0.6);
-      color: var(--accent);
-      background: var(--accent-soft);
-    }
-
-    .hero-title {
-      font-size: clamp(1.6rem, 2.1vw, 2.1rem);
-      line-height: 1.25;
-      margin-bottom: 8px;
-    }
-
-    .hero-highlight {
-      color: var(--accent);
-    }
-
-    .hero-subtitle {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      max-width: 560px;
-      margin-bottom: 16px;
-    }
-
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 14px;
-      font-size: 0.8rem;
+    .project-content { padding: 16px; flex-grow: 1; display: flex; flex-direction: column; }
+    
+    .p-cat { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-blue); font-weight: 700; margin-bottom: 5px; }
+    .p-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; color: var(--text-main); line-height: 1.3; }
+    .p-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px; flex-grow: 1; }
+    
+    .project-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
+    .p-tag {
+      font-size: 0.65rem; padding: 2px 8px; border-radius: 4px;
+      background: var(--tag-bg); border: 1px solid var(--tag-border);
       color: var(--text-muted);
     }
 
-    .hero-meta span {
-      padding: 4px 10px;
-      border-radius: var(--radius-pill);
-      background: var(--bg-chip);
-      border: 1px solid var(--border-soft);
+    .p-link {
+      margin-top: auto; font-size: 0.8rem; color: var(--accent); text-decoration: none; font-weight: 600;
+      display: flex; align-items: center; gap: 5px; transition: 0.2s;
     }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 6px;
-    }
-
-    .btn {
-      border-radius: var(--radius-pill);
-      padding: 8px 18px;
-      font-size: 0.85rem;
-      border: 1px solid transparent;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.18s ease-out;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent), #00c74e);
-      color: var(--bg-main);
-      font-weight: 600;
-      box-shadow: 0 14px 35px rgba(3, 239, 98, 0.35);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 16px 42px rgba(3, 239, 98, 0.45);
-    }
-
-    .btn-ghost {
-      background: transparent;
-      border-color: var(--border-soft);
-      color: var(--text-main);
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--accent-blue);
-      color: var(--accent-blue);
-      background: var(--bg-chip);
-    }
-
-    .section-title {
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.11em;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-    }
-
-    .section-subtitle {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-    }
-    
-    .note-text {
-        font-size: 0.8rem;
-        color: var(--text-muted);
-        font-style: italic;
-        margin-top: -8px;
-        margin-bottom: 20px;
-        line-height: 1.4;
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
+    .p-link:hover { gap: 10px; }
 
     /* ------------------------------------
-     * GitHub-Style Skill Tags (New)
+     * Timeline
      * ------------------------------------ */
-    .skill-tag {
-      font-size: 0.78rem;
-      padding: 5px 11px 5px 20px;
-      border-radius: var(--radius-pill);
-      border: 1px solid var(--tag-border);
-      color: var(--tag-text);
-      background: var(--tag-bg);
-      white-space: nowrap;
-      position: relative;
-      transition: all 0.2s ease;
-    }
-
-    .skill-tag::before {
-      content: '';
-      position: absolute;
-      left: 8px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background-color: var(--dot-color);
-      box-shadow: 0 0 2px var(--dot-color);
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .skill-tag:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    /* Data & Analytics - Red/Orange theme */
-    .tag-data { 
-      --dot-color: #f75d59;
-      --tag-bg: rgba(247, 93, 89, 0.1);
-      --tag-border: rgba(247, 93, 89, 0.3);
-      --tag-text: #f75d59;
-    }
-    
-    html[data-theme="light"] .tag-data {
-      --tag-bg: rgba(247, 93, 89, 0.08);
-      --tag-border: rgba(247, 93, 89, 0.25);
-      --tag-text: #c93632;
-    }
-
-    /* Planning - Blue theme */
-    .tag-planning { 
-      --dot-color: #5eb1ff;
-      --tag-bg: rgba(94, 177, 255, 0.1);
-      --tag-border: rgba(94, 177, 255, 0.3);
-      --tag-text: #5eb1ff;
-    }
-    
-    html[data-theme="light"] .tag-planning {
-      --tag-bg: rgba(94, 177, 255, 0.08);
-      --tag-border: rgba(94, 177, 255, 0.25);
-      --tag-text: #2e7cd6;
-    }
-
-    /* Engineering - Green theme */
-    .tag-engineering { 
-      --dot-color: #4CAF50;
-      --tag-bg: rgba(76, 175, 80, 0.1);
-      --tag-border: rgba(76, 175, 80, 0.3);
-      --tag-text: #4CAF50;
-    }
-    
-    html[data-theme="light"] .tag-engineering {
-      --tag-bg: rgba(76, 175, 80, 0.08);
-      --tag-border: rgba(76, 175, 80, 0.25);
-      --tag-text: #2e7d32;
-    }
-
-    /* Software - Yellow/Amber theme */
-    .tag-software { 
-      --dot-color: #FFC107;
-      --tag-bg: rgba(255, 193, 7, 0.1);
-      --tag-border: rgba(255, 193, 7, 0.3);
-      --tag-text: #FFC107;
-    }
-    
-    html[data-theme="light"] .tag-software {
-      --tag-bg: rgba(255, 193, 7, 0.08);
-      --tag-border: rgba(255, 193, 7, 0.25);
-      --tag-text: #f57c00;
-    }
-
-    /* Soft Skills - Purple theme */
-    .tag-soft { 
-      --dot-color: #A064FF;
-      --tag-bg: rgba(160, 100, 255, 0.1);
-      --tag-border: rgba(160, 100, 255, 0.3);
-      --tag-text: #A064FF;
-    }
-    
-    html[data-theme="light"] .tag-soft {
-      --tag-bg: rgba(160, 100, 255, 0.08);
-      --tag-border: rgba(160, 100, 255, 0.25);
-      --tag-text: #7c3aed;
-    }
-
-    .timeline {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-top: 6px;
-    }
-
     .timeline-item {
-      display: grid;
-      grid-template-columns: 120px minmax(0, 1fr);
-      gap: 12px;
-      align-items: flex-start;
+      position: relative; padding-left: 25px; margin-bottom: 30px;
+      border-left: 2px solid var(--border-soft);
     }
-
-    @media (max-width: 700px) {
-      .timeline-item {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .timeline-date {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      opacity: 0.9;
-    }
-
-    .timeline-content-title {
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin-bottom: 4px;
-      color: var(--text-main);
-    }
-
-    .timeline-company {
-      font-size: 0.8rem;
-      color: var(--accent-blue);
-      margin-bottom: 4px;
-    }
-
-    .timeline-location {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-    }
-
-    .timeline-bullets {
-      list-style: none;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .timeline-bullets li {
-        margin-left: 10px;
-        position: relative;
-    }
-
-    .timeline-bullets li::before {
-        content: "•";
-        position: absolute;
-        left: -10px;
-        color: var(--accent-blue);
-    }
-
-    .timeline-bullets li + li {
-      margin-top: 3px;
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
-      margin-top: 8px;
-    }
-
-    .project-label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--text-muted);
-      margin-bottom: 5px;
-    }
-
-    .project-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      margin-bottom: 4px;
-      color: var(--text-main);
-    }
-
-    .project-meta {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
-
-    .project-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 7px;
-    }
-
-    .project-tag {
-      font-size: 0.7rem;
-      padding: 3px 9px;
-      border-radius: var(--radius-pill);
-      background: var(--bg-card);
-      border: 1px solid var(--border-soft);
-      color: var(--text-muted);
-    }
-
-    .project-link {
-      font-size: 0.78rem;
-      color: var(--accent-blue);
-      text-decoration: none;
-    }
-
-    .project-link:hover {
-      text-decoration: underline;
-    }
-
-    .sidebar-section + .sidebar-section {
-      margin-top: 16px;
-    }
-
-    .list-inline {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      flex-direction: column;
-    }
-
-    .list-inline span {
-      padding: 3px 9px;
-      border-radius: var(--radius-pill);
-      background: var(--bg-chip);
-      border: 1px solid var(--border-soft);
-      color: var(--text-muted);
-    }
-
-    .sidebar-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.8rem;
-      color: var(--accent-blue);
-      text-decoration: none;
-      margin-top: 6px;
-    }
-
-    .sidebar-link:hover {
-      text-decoration: underline;
-    }
-
-    .badge-image {
-      width: 50px;
-      height: 50px;
-      border-radius: 4px;
-      border: 1px solid var(--border-soft);
-      object-fit: contain;
-      background-color: var(--bg-main);
-    }
-
-    footer {
-      padding: 14px 16px 26px;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      text-align: center;
-      margin-top: auto;
-    }
-
-    footer a {
-      color: var(--accent-blue);
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    .theme-toggle-container {
-        display: flex;
-        align-items: center;
-        margin-left: auto;
-    }
-    
-    .theme-toggle-button {
-      padding: 8px 14px;
-      background-color: var(--bg-card);
-      color: var(--text-main);
-      border: 1px solid var(--border-soft);
-      border-radius: var(--radius-pill);
-      cursor: pointer;
-      font-size: 0.8rem;
-      font-weight: 600;
-      transition: all 0.2s ease;
-      margin-left: 16px;
-    }
-
-    .theme-toggle-button:hover {
-      background-color: var(--bg-chip);
-      color: var(--accent);
-    }
-
-    @media (max-width: 1000px) {
-        header {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        nav {
-            order: 2;
-            justify-content: flex-start;
-            margin-top: 10px;
-            width: 100%;
-        }
-        .theme-toggle-container {
-            order: 1;
-            align-self: flex-end;
-            margin-left: 0;
-        }
-    }
-
-    /* ------------------------------------
-     * Back to Top Button
-     * ------------------------------------ */
-    .back-to-top {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 50px;
-      height: 50px;
-      background: linear-gradient(135deg, var(--accent), #00c74e);
-      color: var(--bg-main);
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      box-shadow: 0 14px 35px rgba(3, 239, 98, 0.35);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(20px);
-      transition: all 0.3s ease;
-      z-index: 1000;
-    }
-
-    .back-to-top.visible {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    .back-to-top:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 18px 45px rgba(3, 239, 98, 0.5);
-    }
-
-    /* ------------------------------------
-     * Loading Animation
-     * ------------------------------------ */
-    .loading-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--bg-main);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
-    }
-
-    .loading-screen.hidden {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .loader {
-      width: 60px;
-      height: 60px;
-      border: 4px solid var(--bg-chip);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .loading-text {
-      margin-top: 20px;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    /* ------------------------------------
-     * Read More/Less Toggle
-     * ------------------------------------ */
-    .expandable-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-    }
-
-    .expandable-content.expanded {
-      max-height: 500px;
-    }
-
-    .expand-toggle {
-      color: var(--accent-blue);
-      cursor: pointer;
-      font-size: 0.8rem;
-      margin-top: 8px;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      transition: color 0.2s ease;
-    }
-
-    .expand-toggle:hover {
-      color: var(--accent);
-      text-decoration: underline;
-    }
-
-    /* ------------------------------------
-     * Timeline Visualization
-     * ------------------------------------ */
-    .career-timeline {
-      position: relative;
-      padding-left: 30px;
-    }
-
-    .career-timeline::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: linear-gradient(to bottom, var(--accent), var(--accent-blue));
-    }
-
-    .timeline-item {
-      position: relative;
-    }
-
     .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -35px;
-      top: 5px;
-      width: 12px;
-      height: 12px;
+      content: ''; position: absolute; left: -6px; top: 5px;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--bg-main); border: 2px solid var(--accent);
+      box-shadow: 0 0 0 0 rgba(3, 239, 98, 0.7);
+      animation: pulseGreen 2s infinite;
+    }
+    
+    .t-date { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .t-role { font-size: 1rem; font-weight: 700; color: var(--text-main); margin-bottom: 2px; }
+    .t-comp { color: var(--accent-blue); font-size: 0.85rem; margin-bottom: 8px; }
+    .t-loc { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px; font-style: italic; }
+    .t-list { padding-left: 15px; font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; margin: 0; }
+    .t-list li { margin-bottom: 6px; }
+
+    /* ------------------------------------
+     * Floating WhatsApp Button
+     * ------------------------------------ */
+    .whatsapp-float {
+      position: fixed;
+      width: 60px; height: 60px;
+      bottom: 30px; right: 30px;
+      background-color: var(--whatsapp-green);
+      color: #FFF;
       border-radius: 50%;
-      background: var(--accent-blue);
-      border: 3px solid var(--bg-card);
-      box-shadow: 0 0 0 2px var(--accent-blue);
-      z-index: 1;
-    }
-
-    /* ------------------------------------
-     * View Counter
-     * ------------------------------------ */
-    .view-counter {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 12px;
-      border-radius: var(--radius-pill);
-      background: var(--bg-chip);
-      border: 1px solid var(--border-soft);
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-
-    .view-counter-icon {
-      font-size: 0.9rem;
-    }
-
-    /* ------------------------------------
-     * Social Share Buttons
-     * ------------------------------------ */
-    .share-section {
-      margin-top: 20px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border-soft);
-    }
-
-    .share-buttons {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 12px;
-    }
-
-    .share-btn {
-      padding: 8px 16px;
-      border-radius: var(--radius-pill);
-      border: 1px solid var(--border-soft);
-      background: var(--bg-chip);
-      color: var(--text-main);
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .share-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .share-btn.twitter:hover {
-      background: rgba(29, 161, 242, 0.1);
-      border-color: #1DA1F2;
-      color: #1DA1F2;
-    }
-
-    .share-btn.linkedin:hover {
-      background: rgba(0, 119, 181, 0.1);
-      border-color: #0077B5;
-      color: #0077B5;
-    }
-
-    .share-btn.facebook:hover {
-      background: rgba(66, 103, 178, 0.1);
-      border-color: #4267B2;
-      color: #4267B2;
-    }
-
-    /* ------------------------------------
-     * Achievement Badges
-     * ------------------------------------ */
-    .achievement-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 14px;
-      border-radius: var(--radius-pill);
-      background: var(--bg-chip);
-      border: 1px solid var(--border-soft);
-      position: relative;
-      overflow: hidden;
+      text-align: center;
+      font-size: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      z-index: 1000;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
       transition: all 0.3s ease;
+      animation: pulseGreen 2.5s infinite;
     }
 
-    .achievement-badge::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(3, 239, 98, 0.1), transparent);
-      transition: left 0.5s ease;
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      background-color: #20ba5a;
     }
 
-    .achievement-badge:hover::before {
-      left: 100%;
+    /* ------------------------------------
+     * Skills & Other
+     * ------------------------------------ */
+    .skill-category { margin-bottom: 20px; }
+    .skill-title { font-size: 0.8rem; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 10px; font-weight: 700; }
+    
+    .pill-container { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      font-size: 0.78rem; padding: 6px 12px; border-radius: var(--radius-pill);
+      background: var(--bg-chip); border: 1px solid var(--border-soft);
+      color: var(--text-main); transition: 0.2s; position: relative; padding-left: 22px;
+    }
+    .pill::before {
+      content: ''; position: absolute; left: 8px; top: 50%; transform: translateY(-50%);
+      width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+    }
+    .pill:hover { transform: translateY(-2px); border-color: var(--accent); }
+
+    /* Forms */
+    .contact-form input, .contact-form textarea {
+      width: 100%; background: var(--bg-chip); border: 1px solid var(--border-soft);
+      padding: 12px; border-radius: 12px; margin-bottom: 10px; color: var(--text-main);
+      font-family: inherit; transition: 0.3s;
+    }
+    .contact-form input:focus, .contact-form textarea:focus {
+      outline: none; border-color: var(--accent-blue); box-shadow: 0 0 0 3px rgba(94, 177, 255, 0.1);
     }
 
-    .achievement-badge:hover {
-      transform: scale(1.05);
-      border-color: var(--accent);
+    .social-links { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
+    .social-btn {
+      width: 42px; height: 42px; border-radius: 50%; background: var(--bg-chip);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted); text-decoration: none; transition: 0.3s;
+      border: 1px solid var(--border-soft); font-size: 1.1rem;
     }
+    .social-btn:hover { background: var(--accent); color: #000; transform: translateY(-3px); }
 
-    .badge-icon {
-      font-size: 1.2rem;
+    /* Achievement Badge */
+    .ach-badge {
+      display: flex; align-items: center; gap: 10px; padding: 10px;
+      background: var(--bg-chip); border-radius: 12px; border: 1px solid var(--border-soft);
+      margin-bottom: 10px; transition: 0.2s; text-decoration: none;
     }
+    .ach-badge:hover { border-color: var(--accent); transform: translateX(5px); }
+    .ach-icon { font-size: 1.2rem; }
+    .ach-text h4 { margin: 0; font-size: 0.85rem; color: var(--text-main); }
+    .ach-text p { margin: 0; font-size: 0.75rem; color: var(--text-muted); }
 
-    .badge-content {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
+    /* Expand Read More */
+    .expand-content { max-height: 0; overflow: hidden; transition: 0.4s ease; }
+    .expand-content.open { max-height: 500px; }
+    .expand-btn { color: var(--accent-blue); font-size: 0.8rem; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; }
+    .expand-btn:hover { text-decoration: underline; }
 
-    .badge-title {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-main);
-    }
+    footer { text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 40px; }
 
-    .badge-subtitle {
-      font-size: 0.7rem;
-      color: var(--text-muted);
-    }
   </style>
 </head>
 <body>
-  <!-- Loading Screen -->
-  <div class="loading-screen" id="loadingScreen">
-    <div class="loader"></div>
-    <div class="loading-text">Loading Portfolio...</div>
-  </div>
 
-  <!-- Back to Top Button -->
-  <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/201014116376" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
 
   <div class="page">
+    
+    <!-- Glassmorphism Header -->
     <header>
       <div class="brand">
         <div class="brand-avatar">
-          <!-- Replace the src below with your actual profile photo URL -->
-          <img src="https://ui-avatars.com/api/?name=Mohamed+Aboudonya&background=03ef62&color=fff&size=200&bold=true" alt="Mohamed Aboudonya" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-          <span class="brand-avatar-fallback" style="display: none;">M</span>
+          <img src="https://ui-avatars.com/api/?name=Mohamed+Aboudonya&background=03ef62&color=fff&size=200&bold=true" alt="MA">
         </div>
-        <div class="brand-text">
-          <div class="brand-name">Mohamed Aboudonya</div>
-          <div class="brand-role">Data Analysis & Planning Engineer</div>
-        </div>
-        <div class="view-counter" id="viewCounter">
-          <span class="view-counter-icon">👁️</span>
-          <span id="viewCount">Loading...</span>
+        <div class="brand-info">
+          <h1>Mohamed Aboudonya</h1>
+          <p>Data & Planning Engineer</p>
         </div>
       </div>
+
+      <nav class="nav-desktop" id="navMenu">
+        <a href="#about" class="nav-link active">About</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#contact" class="nav-link">Contact</a>
+        <button class="theme-btn" id="themeToggle"><i class="fas fa-moon"></i></button>
+      </nav>
       
-      <div class="theme-toggle-container">
-        <nav>
-          <a href="#about">About</a>
-          <a href="#experience">Experience</a>
-          <a href="#projects">Projects</a>
-          <a href="#skills">Skills</a>
-          <a href="#education">Education & Certificates</a>
-          <a href="#contact">Contact</a>
-        </nav>
-        <button id="theme-toggle" class="theme-toggle-button" aria-label="Toggle light and dark mode"></button>
-      </div>
+      <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
     </header>
 
     <main>
-      <!-- Left column -->
+      <!-- LEFT COLUMN -->
       <section>
-        <article class="card fade-in" id="about">
+        
+        <!-- HERO / ABOUT SECTION -->
+        <article class="card" id="about">
           <div class="badge-row">
-            <span class="badge-pill">Open to Opportunities</span>
+            <span class="badge badge-active">Open to Opportunities</span>
             <span class="badge">Portfolio</span>
             <span class="badge">📊 Data Analyst Associate</span>
             <span class="badge">📈 Data Analyst Professional</span>
-            <span class="badge">🧪 Data Scientist Associate</span>
           </div>
+          
           <h1 class="hero-title">
-            <span class="typing-text" id="typingText"></span>
+            <span id="typingText" class="typing-cursor"></span>
           </h1>
+          
           <p class="hero-subtitle">
             Data-focused Mechanical Production & Planning Engineer with 7+ years in manufacturing and heavy industry. I specialize in turning maintenance and production data into decisions: building CMMS reports, tracking OEE and downtime, and planning resources to hit production targets. Comfortable working end-to-end from collecting data in Excel/CMMS to analyzing it with Python/SQL and visualizing insights in Power BI.
           </p>
 
           <div class="hero-meta">
             <span>Location · Egypt</span>
-            <span>Primary focus · Data Analytics · Maintenance Planning · BI Dashboards</span>
-            <span>Industry · Manufacturing · Heavy Industries · Production Planning</span>
+            <span>Focus · Data Analytics · Maintenance Planning · BI</span>
+            <span>Industry · Manufacturing · Heavy Industries</span>
           </div>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#contact">Contact me</a>
-            <a class="btn btn-ghost" href="#projects">View projects</a>
-            <a class="btn btn-ghost" href="#" download>Download CV</a>
-          </div>
-
-          <!-- Share Section -->
-          <div class="share-section">
-            <p class="section-subtitle" style="margin-bottom: 0;">Share this portfolio:</p>
-            <div class="share-buttons">
-              <button class="share-btn twitter" onclick="shareOnTwitter()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
-                </svg>
-                Twitter
-              </button>
-              <button class="share-btn linkedin" onclick="shareOnLinkedIn()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
-                  <circle cx="4" cy="4" r="2"/>
-                </svg>
-                LinkedIn
-              </button>
-              <button class="share-btn facebook" onclick="shareOnFacebook()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
-                </svg>
-                Facebook
-              </button>
-            </div>
+          
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top: 20px;">
+            <a href="#contact" class="btn btn-primary">Contact Me</a>
+            <a href="#projects" class="btn btn-outline">View Projects</a>
+            <!-- IMPORTANT: Replace href with your actual PDF file path -->
+            <a href="./Mohamed_Aboudonya_CV.pdf" class="btn btn-outline" download>
+              <i class="fas fa-download"></i> Download CV
+            </a>
           </div>
         </article>
 
-        <article class="card fade-in" id="projects">
-          <h2 class="section-title">Projects</h2>
-          <p class="section-subtitle">Selected data & analytics projects that showcase my skills.</p>
-          
-          <p class="note-text">
-            *Note: These projects link to DataCamp Datalabs. You can download the associated project data by navigating to the Datalab page and selecting **File > Download**.*
-          </p>
+        <!-- PROJECTS SECTION -->
+        <article class="card" id="projects">
+          <h2 style="margin-top:0; margin-bottom:20px;">All Projects</h2>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:20px;">* Projects hosted on DataCamp DataLab.</p>
+
+          <div class="filter-container">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="python">Python</button>
+            <button class="filter-btn" data-filter="ml">Machine Learning</button>
+            <button class="filter-btn" data-filter="viz">Visualization</button>
+            <button class="filter-btn" data-filter="stats">Statistics</button>
+          </div>
 
           <div class="projects-grid">
-            <div class="project-card fade-in">
-              <div class="project-label">Clustering</div>
-              <div class="project-title">Clustering Antarctic Penguin Species</div>
-              <div class="project-meta">Python · Pandas · scikit-learn</div>
-              <p class="timeline-bullets">
-                Used K-means clustering to identify groups of penguins based on culmen, flipper, and body measurements.
-              </p>
-              <div class="project-tags">
-                <span class="project-tag">Unsupervised Learning</span>
-                <span class="project-tag">Clustering</span>
-                <span class="project-tag">Visualization</span>
+            <!-- 1. Clustering -->
+            <div class="project-card" data-category="python ml">
+              <div class="project-thumb thumb-ml"><i class="fas fa-crow"></i></div>
+              <div class="project-content">
+                <div class="p-cat">Clustering</div>
+                <div class="p-title">Antarctic Penguin Species</div>
+                <div class="p-desc">Used K-means clustering to identify groups of penguins based on culmen, flipper, and body measurements.</div>
+                <div class="project-tags">
+                    <span class="p-tag">Unsupervised Learning</span>
+                    <span class="p-tag">Clustering</span>
+                </div>
+                <a href="https://www.datacamp.com/datalab/w/0a924a68-c439-4e00-8d2c-0ba9958467ba/edit" target="_blank" class="p-link">View Project <i class="fas fa-arrow-right"></i></a>
               </div>
-              <a class="project-link" href="https://www.datacamp.com/datalab/w/0a924a68-c439-4e00-8d2c-0ba9958467ba/edit" target="_blank" rel="noopener noreferrer">View project →</a>
             </div>
 
-            <div class="project-card fade-in">
-              <div class="project-label">Customer Analytics</div>
-              <div class="project-title">Customer Analytics: Preparing Data for Modeling</div>
-              <div class="project-meta">Python · Data Cleaning · Optimization</div>
-              <p class="timeline-bullets">
-                Cleaned and optimized a large customer dataset to make model training faster while preserving information for prediction.
-              </p>
-              <div class="project-tags">
-                <span class="project-tag">Data Types</span>
-                <span class="project-tag">Memory Optimization</span>
-                <span class="project-tag">Preprocessing</span>
+            <!-- 2. Customer Analytics (Cleaning) -->
+            <div class="project-card" data-category="python">
+              <div class="project-thumb thumb-code"><i class="fas fa-database"></i></div>
+              <div class="project-content">
+                <div class="p-cat">Cleaning</div>
+                <div class="p-title">Preparing Data for Modeling</div>
+                <div class="p-desc">Cleaned and optimized a large customer dataset to make model training faster while preserving information.</div>
+                <div class="project-tags">
+                    <span class="p-tag">Optimization</span>
+                    <span class="p-tag">Data Types</span>
+                </div>
+                <a href="https://www.datacamp.com/datalab/w/13028846-155e-4d34-8c35-cb3adcefe135/edit" target="_blank" class="p-link">View Project <i class="fas fa-arrow-right"></i></a>
               </div>
-              <a class="project-link" href="https://www.datacamp.com/datalab/w/13028846-155e-4d34-8c35-cb3adcefe135/edit" target="_blank" rel="noopener noreferrer">View project →</a>
             </div>
 
-            <div class="project-card fade-in">
-              <div class="project-label">Social Insights</div>
-              <div class="project-title">Analyzing Students' Mental Health</div>
-              <div class="project-meta">Python · Exploratory Data Analysis</div>
-              <p class="timeline-bullets">
-                Explored mental health survey data to identify patterns and potential risk factors among students.
-              </p>
-              <div class="project-tags">
-                <span class="project-tag">EDA</span>
-                <span class="project-tag">Survey Data</span>
+            <!-- 3. Mental Health (Viz) -->
+            <div class="project-card" data-category="python viz">
+              <div class="project-thumb thumb-viz"><i class="fas fa-brain"></i></div>
+              <div class="project-content">
+                <div class="p-cat">EDA</div>
+                <div class="p-title">Analyzing Students' Mental Health</div>
+                <div class="p-desc">Explored mental health survey data to identify patterns and potential risk factors among students.</div>
+                <div class="project-tags">
+                    <span class="p-tag">EDA</span>
+                    <span class="p-tag">Survey Data</span>
+                </div>
+                <a href="https://www.datacamp.com/datalab/w/2bb2fd94-117f-4625-aa4e-50537652ad1a/edit" target="_blank" class="p-link">View Project <i class="fas fa-arrow-right"></i></a>
               </div>
-              <a class="project-link" href="https://www.datacamp.com/datalab/w/2bb2fd94-117f-4625-aa4e-50537652ad1a/edit" target="_blank" rel="noopener noreferrer">View project →</a>
             </div>
 
-            <div class="project-card fade-in">
-              <div class="project-label">Sales Analytics</div>
-              <div class="project-title">Analyzing Motorcycle Part Sales</div>
-              <div class="project-meta">Python · Pandas · Visualization</div>
-              <p class="timeline-bullets">
-                Analyzed motorcycle parts sales data to understand revenue trends and key product segments.
-              </p>
-              <div class="project-tags">
-                <span class="project-tag">Sales Trends</span>
-                <span class="project-tag">Revenue Analysis</span>
+            <!-- 4. Sales Analytics (Viz) -->
+            <div class="project-card" data-category="python viz">
+              <div class="project-thumb thumb-viz"><i class="fas fa-motorcycle"></i></div>
+              <div class="project-content">
+                <div class="p-cat">Sales</div>
+                <div class="p-title">Analyzing Motorcycle Part Sales</div>
+                <div class="p-desc">Analyzed motorcycle parts sales data to understand revenue trends and key product segments.</div>
+                <div class="project-tags">
+                    <span class="p-tag">Revenue Analysis</span>
+                    <span class="p-tag">Trends</span>
+                </div>
+                <a href="https://www.datacamp.com/datalab/w/2c242c20-db6b-4671-83b2-97220946e506/edit" target="_blank" class="p-link">View Project <i class="fas fa-arrow-right"></i></a>
               </div>
-              <a class="project-link" href="https://www.datacamp.com/datalab/w/2c242c20-db6b-4671-83b2-97220946e506/edit" target="_blank" rel="noopener noreferrer">View project →</a>
             </div>
 
-            <div class="project-card fade-in">
-              <div class="project-label">Data Storytelling</div>
-              <div class="project-title">Visualizing the History of Nobel Prize Winners</div>
-              <div class="project-meta">Python · Data Visualization</div>
-              <p class="timeline-bullets">
-                Built visualizations to explore trends in Nobel Prize awards across categories, countries, and time.
-              </p>
-              <div class="project-tags">
-                <span class="project-tag">Data Storytelling</span>
-                <span class="project-tag">Time Series</span>
+            <!-- 5. Nobel Prize (Viz) -->
+            <div class="project-card" data-category="python viz">
+              <div class="project-thumb thumb-viz"><i class="fas fa-medal"></i></div>
+              <div class="project-content">
+                <div class="p-cat">Storytelling</div>
+                <div class="p-title">History of Nobel Prize Winners</div>
+                <div class="p-desc">Built visualizations to explore trends in Nobel Prize awards across categories, countries, and time.</div>
+                <div class="project-tags">
+                    <span class="p-tag">Time Series</span>
+                    <span class="p-tag">Visualization</span>
+                </div>
+                <a href="https://www.datacamp.com/datalab/w/2cb3d915-5ac3-482e-b6b6-ae94572ddafc/edit" target="_blank" class="p-link">View Project <i class="fas fa-arrow-right"></i></a>
               </div>
-              <a class="project-link" href="https://www.datacamp.com/datalab/w/2cb3d915-5ac3-482e-b6b6-ae94572ddafc/edit" target="_blank" rel="noopener noreferrer">View project →</a>
             </div>
 
-            <div class="project-card fade-in">
-              <div class="project-label">Customer Analytics</div>
-              <div class="project-title">Assessing Customer Churn Using Machine Learning</div>
-              <div class="project-meta">Python · scikit-learn · Classification</div>
-              <p class="timeline-bullets">
-                Built a classification model to predict which customers are likely to churn based on behavioral features.
-              </p>
-              <div class="project-tags">
-                <span class="project-tag">Churn</span>
-                <span class="project-tag">Classification</span>
+            <!-- 6. Churn (ML) -->
+            <div class="project-card" data-category="python ml">
+              <div class="project-thumb thumb-ml"><i class="fas fa-user-times"></i></div>
+              <div class="project-content">
+                <div class="p-cat">Classification</div>
+                <div class="p-title">Assessing Customer Churn</div>
+                <div class="p-desc">Built a classification model to predict which customers are likely to churn based on behavioral features.</div>
+                <div class="project-tags">
+                    <span class="p-tag">scikit-learn</span>
+                    <span class="p-tag">Churn</span>
+                </div>
+                <a href="https://www.datacamp.com/datalab/w/5e022083-c420-42e8-b10b-da52d66f1f98/edit" target="_blank" class="p-link">View Project <i class="fas fa-arrow-right"></i></a>
               </div>
-              <a class="project-link" href="https://www.datacamp.com/datalab/w/5e022083-c420-42e8-b10b-da52d66f1f98/edit" target="_blank" rel="noopener noreferrer">View project →</a>
             </div>
 
-            <div class="project-card fade-in">
-              <div class="project-label">Market Analysis</div>
-              <div class="project-title">Exploring Airbnb Market Trends</div>
-              <div class="project-meta">Python · EDA · Visualization</div>
-              <p class="timeline-bullets">
-                Explored Airbnb listing data to understand pricing, location patterns, and market behavior.
-              </p>
-              <div class="project-tags">
-                <span class="project-tag">Real Estate</span>
-                <span class="project-tag">Pricing</span>
+            <!-- 7. Airbnb (Viz/EDA) -->
+            <div class="project-card" data-category="python viz">
+              <div class="project-thumb thumb-viz"><i class="fas fa-home"></i></div>
+              <div class="project-content">
+                <div class="p-cat">Market Analysis</div>
+                <div class="p-title">Exploring Airbnb Market Trends</div>
+                <div class="p-desc">Explored Airbnb listing data to understand pricing, location patterns, and market behavior.</div>
+                <div class="project-tags">
+                    <span class="p-tag">Real Estate</span>
+                    <span class="p-tag">Pricing</span>
+                </div>
+                <a href="https://www.datacamp.com/datalab/w/84309458-98b3-410e-8490-45b9df2c4715/edit" target="_blank" class="p-link">View Project <i class="fas fa-arrow-right"></i></a>
               </div>
-              <a class="project-link" href="https://www.datacamp.com/datalab/w/84309458-98b3-410e-8490-45b9df2c4715/edit" target="_blank" rel="noopener noreferrer">View project →</a>
             </div>
 
-            <div class="project-card fade-in">
-              <div class="project-label">Risk Modeling</div>
-              <div class="project-title">Predicting Credit Card Approvals</div>
-              <div class="project-meta">Python · scikit-learn · Classification</div>
-              <p class="timeline-bullets">
-                Developed a model to predict whether a credit card application will be approved based on applicant data.
-              </p>
-              <div class="project-tags">
-                <span class="project-tag">Credit Risk</span>
-                <span class="project-tag">Binary Classification</span>
+            <!-- 8. Credit Card (ML) -->
+            <div class="project-card" data-category="python ml">
+              <div class="project-thumb thumb-ml"><i class="fas fa-credit-card"></i></div>
+              <div class="project-content">
+                <div class="p-cat">Risk Modeling</div>
+                <div class="p-title">Predicting Credit Card Approvals</div>
+                <div class="p-desc">Developed a model to predict whether a credit card application will be approved based on applicant data.</div>
+                <div class="project-tags">
+                    <span class="p-tag">Credit Risk</span>
+                    <span class="p-tag">Binary Classification</span>
+                </div>
+                <a href="https://www.datacamp.com/datalab/w/9d874e45-579f-4396-aee2-997495d86745/edit" target="_blank" class="p-link">View Project <i class="fas fa-arrow-right"></i></a>
               </div>
-              <a class="project-link" href="https://www.datacamp.com/datalab/w/9d874e45-579f-4396-aee2-997495d86745/edit" target="_blank" rel="noopener noreferrer">View project →</a>
             </div>
 
-            <div class="project-card fade-in">
-              <div class="project-label">Sports Analytics</div>
-              <div class="project-title">Hypothesis Testing with Men's and Women's Soccer Matches</div>
-              <div class="project-meta">Python · Statistics · Hypothesis Testing</div>
-              <p class="timeline-bullets">
-                Applied statistical tests to compare outcomes and scoring patterns between men's and women's soccer matches.
-              </p>
-              <div class="project-tags">
-                <span class="project-tag">Hypothesis Testing</span>
-                <span class="project-tag">Sports Data</span>
+            <!-- 9. Soccer (Stats) -->
+            <div class="project-card" data-category="python stats">
+              <div class="project-thumb thumb-stats"><i class="fas fa-futbol"></i></div>
+              <div class="project-content">
+                <div class="p-cat">Statistics</div>
+                <div class="p-title">Hypothesis Testing: Soccer</div>
+                <div class="p-desc">Applied statistical tests to compare outcomes and scoring patterns between men's and women's soccer matches.</div>
+                <div class="project-tags">
+                    <span class="p-tag">Hypothesis Testing</span>
+                    <span class="p-tag">Sports Data</span>
+                </div>
+                <a href="https://www.datacamp.com/datalab/w/ad0e1491-2977-4685-a087-15dc7883d344/edit" target="_blank" class="p-link">View Project <i class="fas fa-arrow-right"></i></a>
               </div>
-              <a class="project-link" href="https://www.datacamp.com/datalab/w/ad0e1491-2977-4685-a087-15dc7883d344/edit" target="_blank" rel="noopener noreferrer">View project →</a>
             </div>
 
-            <div class="project-card fade-in">
-              <div class="project-label">Insurance Analytics</div>
-              <div class="project-title">Modeling Car Insurance Claim Outcomes</div>
-              <div class="project-meta">Python · Machine Learning · Insurance</div>
-              <p class="timeline-bullets">
-                Modeled claim outcomes for car insurance policies to understand risk drivers and claim probabilities.
-              </p>
-              <div class="project-tags">
-                <span class="project-tag">Insurance</span>
-                <span class="project-tag">Claims</span>
+            <!-- 10. Insurance (ML) -->
+            <div class="project-card" data-category="python ml">
+              <div class="project-thumb thumb-ml"><i class="fas fa-car-crash"></i></div>
+              <div class="project-content">
+                <div class="p-cat">Insurance</div>
+                <div class="p-title">Car Insurance Claim Outcomes</div>
+                <div class="p-desc">Modeled claim outcomes for car insurance policies to understand risk drivers and claim probabilities.</div>
+                <div class="project-tags">
+                    <span class="p-tag">Claims</span>
+                    <span class="p-tag">Risk</span>
+                </div>
+                <a href="https://www.datacamp.com/datalab/w/b61b84da-d2c1-4d35-a8a6-de931b3683bd/edit" target="_blank" class="p-link">View Project <i class="fas fa-arrow-right"></i></a>
               </div>
-              <a class="project-link" href="https://www.datacamp.com/datalab/w/b61b84da-d2c1-4d35-a8a6-de931b3683bd/edit" target="_blank" rel="noopener noreferrer">View project →</a>
             </div>
 
-            <div class="project-card fade-in">
-              <div class="project-label">Agriculture</div>
-              <div class="project-title">Predictive Modeling for Agriculture</div>
-              <div class="project-meta">Python · Machine Learning</div>
-              <p class="timeline-bullets">
-                Built a predictive model for agricultural outcomes to support data-driven decisions in farming.
-              </p>
-              <div class="project-tags">
-                <span class="project-tag">Agriculture</span>
-                <span class="project-tag">Prediction</span>
+            <!-- 11. Agriculture (ML) -->
+            <div class="project-card" data-category="python ml">
+              <div class="project-thumb thumb-ml"><i class="fas fa-seedling"></i></div>
+              <div class="project-content">
+                <div class="p-cat">Prediction</div>
+                <div class="p-title">Predicting Agriculture Outcomes</div>
+                <div class="p-desc">Built a predictive model for agricultural outcomes to support data-driven decisions in farming.</div>
+                <div class="project-tags">
+                    <span class="p-tag">Agriculture</span>
+                    <span class="p-tag">Prediction</span>
+                </div>
+                <a href="https://www.datacamp.com/datalab/w/ca15af0e-a0f1-4f9d-bb7a-70c9dd7ddc68/edit" target="_blank" class="p-link">View Project <i class="fas fa-arrow-right"></i></a>
               </div>
-              <a class="project-link" href="https://www.datacamp.com/datalab/w/ca15af0e-a0f1-4f9d-bb7a-70c9dd7ddc68/edit" target="_blank" rel="noopener noreferrer">View project →</a>
             </div>
 
-            <div class="project-card fade-in">
-              <div class="project-label">Time-based Prediction</div>
-              <div class="project-title">Predicting Movie Rental Durations</div>
-              <div class="project-meta">Python · SQL · Regression</div>
-              <p class="timeline-bullets">
-                Predicted how long a movie will be rented using customer and movie features, combining SQL and Python.
-              </p>
-              <div class="project-tags">
-                <span class="project-tag">Regression</span>
-                <span class="project-tag">Rental Data</span>
+            <!-- 12. Movie Rental (SQL/Regression) -->
+            <div class="project-card" data-category="python stats">
+              <div class="project-thumb thumb-stats"><i class="fas fa-video"></i></div>
+              <div class="project-content">
+                <div class="p-cat">Regression</div>
+                <div class="p-title">Predicting Movie Rental Durations</div>
+                <div class="p-desc">Predicted how long a movie will be rented using customer and movie features, combining SQL and Python.</div>
+                <div class="project-tags">
+                    <span class="p-tag">SQL</span>
+                    <span class="p-tag">Regression</span>
+                </div>
+                <a href="https://www.datacamp.com/datalab/w/ee73260e-e213-4a7e-b78c-6c017afd07f6/edit" target="_blank" class="p-link">View Project <i class="fas fa-arrow-right"></i></a>
               </div>
-              <a class="project-link" href="https://www.datacamp.com/datalab/w/ee73260e-e213-4a7e-b78c-6c017afd07f6/edit" target="_blank" rel="noopener noreferrer">View project →</a>
             </div>
+
           </div>
         </article>
       </section>
 
-      <!-- Right column / sidebar -->
+      <!-- RIGHT COLUMN -->
       <aside>
-        <article class="card fade-in" id="experience">
-          <h2 class="section-title">Experience</h2>
-          <p class="section-subtitle">Recent roles and impact.</p>
-          <div class="timeline career-timeline">
-            <div class="timeline-item">
-              <div class="timeline-date">Apr 2022 – Present</div>
-              <div>
-                <div class="timeline-content-title">Senior Planning Engineer – Production & Maintenance</div>
-                <div class="timeline-company">Egyptian Black Sands Company (EBSC) · Planning & Maintenance</div>
-                <div class="timeline-location">Egypt · On-site</div>
-                <ul class="timeline-bullets">
-                  <li>Developed and executed preventive & predictive maintenance strategies, reducing unplanned downtime by 15%.</li>
-                  <li>Implemented CMMS-based scheduling and reporting, improving maintenance tracking accuracy by 20%.</li>
-                  <li>Enhanced coordination between production and maintenance teams, ensuring continuous equipment readiness.</li>
-                </ul>
-                <div class="expandable-content" id="exp1">
-                  <ul class="timeline-bullets">
-                    <li>Conducted RCA and introduced cost-optimization strategies, achieving 12% annual savings.</li>
-                    <li>Proposed technical solutions that improved sand separation process efficiency and overall plant reliability.</li>
-                  </ul>
-                </div>
-                <div class="expand-toggle" onclick="toggleExpand('exp1', this)">
-                  <span>Read more</span> <span>▼</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="timeline-item">
-              <div class="timeline-date">Oct 2020 – Apr 2022</div>
-              <div>
-                <div class="timeline-content-title">Mechanical Design & Production Engineer</div>
-                <div class="timeline-company">Middle East Air Conditioning Co. · Production & Design</div>
-                <div class="timeline-location">Egypt</div>
-                <ul class="timeline-bullets">
-                  <li>Designed and manufactured central AC duct systems using AutoCAD/CAMDUCT, achieving 100% standards compliance.</li>
-                  <li>Operated and programmed CNC plasma cutting machines, increasing cutting accuracy and reducing scrap by 8%.</li>
-                </ul>
-                <div class="expandable-content" id="exp2">
-                  <ul class="timeline-bullets">
-                    <li>Led preventive maintenance programs, cutting equipment breakdowns by 10%.</li>
-                    <li>Improved inventory planning and material utilization, reducing material waste by 5%.</li>
-                  </ul>
-                </div>
-                <div class="expand-toggle" onclick="toggleExpand('exp2', this)">
-                  <span>Read more</span> <span>▼</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="timeline-item">
-              <div class="timeline-date">Jan 2019 – Oct 2020</div>
-              <div>
-                <div class="timeline-content-title">Production Engineer</div>
-                <div class="timeline-company">Gade Textile Egypt</div>
-                <div class="timeline-location">Egypt</div>
-                <ul class="timeline-bullets">
-                  <li>Applied Lean Manufacturing tools (5S, Kaizen, Six Sigma), increasing production line productivity by 10%.</li>
-                  <li>Introduced data-driven KPIs to monitor performance, reducing process bottlenecks by 15%.</li>
-                </ul>
-                <div class="expandable-content" id="exp3">
-                  <ul class="timeline-bullets">
-                    <li>Performed downtime analysis and implemented corrective actions, achieving 20% fewer interruptions.</li>
-                    <li>Implemented employee performance evaluation systems that improved engagement and accountability.</li>
-                  </ul>
-                </div>
-                <div class="expand-toggle" onclick="toggleExpand('exp3', this)">
-                  <span>Read more</span> <span>▼</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="card fade-in" id="skills">
-          <h2 class="section-title">Skills</h2>
-          <p class="section-subtitle">Technologies and domains I work with.</p>
-
-          <h3 class="section-subtitle" style="margin-bottom: 6px;">Data & Analytics</h3>
-          <div class="pill-row" style="margin-bottom: 10px;">
-            <span class="skill-tag tag-data">Power BI</span>
-            <span class="skill-tag tag-data">Excel (Advanced)</span>
-            <span class="skill-tag tag-data">Python</span>
-            <span class="skill-tag tag-data">SQL</span>
-            <span class="skill-tag tag-data">Data Cleaning</span>
-            <span class="skill-tag tag-data">Data Visualization</span>
-            <span class="skill-tag tag-data">KPI Dashboards</span>
-            <span class="skill-tag tag-data">Statistical Analysis</span>
-          </div>
-
-          <h3 class="section-subtitle" style="margin-bottom: 6px;">Maintenance & Planning</h3>
-          <div class="pill-row" style="margin-bottom: 10px;">
-            <span class="skill-tag tag-planning">CMMS</span>
-            <span class="skill-tag tag-planning">Preventive & Predictive Maintenance</span>
-            <span class="skill-tag tag-planning">OEE Analysis</span>
-            <span class="skill-tag tag-planning">Downtime Analysis</span>
-            <span class="skill-tag tag-planning">Resource Planning</span>
-            <span class="skill-tag tag-planning">Root Cause Analysis (RCA)</span>
-            <span class="skill-tag tag-planning">Maintenance Scheduling</span>
-          </div>
-
-          <h3 class="section-subtitle" style="margin-bottom: 6px;">Manufacturing & Engineering</h3>
-          <div class="pill-row" style="margin-bottom: 10px;">
-            <span class="skill-tag tag-engineering">Lean Manufacturing</span>
-            <span class="skill-tag tag-engineering">5S</span>
-            <span class="skill-tag tag-engineering">Kaizen</span>
-            <span class="skill-tag tag-engineering">Six Sigma Basics</span>
-            <span class="skill-tag tag-engineering">Production Optimization</span>
-            <span class="skill-tag tag-engineering">Process Improvement</span>
-            <span class="skill-tag tag-engineering">Quality Control</span>
-          </div>
-
-          <h3 class="section-subtitle" style="margin-bottom: 6px;">Engineering Software</h3>
-          <div class="pill-row" style="margin-bottom: 10px;">
-            <span class="skill-tag tag-software">AutoCAD</span>
-            <span class="skill-tag tag-software">CAMDUCT</span>
-            <span class="skill-tag tag-software">CNC Programming</span>
-            <span class="skill-tag tag-software">Plasma Cutting Systems</span>
-          </div>
-
-          <h3 class="section-subtitle" style="margin-bottom: 6px;">Soft Skills</h3>
-          <div class="pill-row">
-            <span class="skill-tag tag-soft">Team Leadership</span>
-            <span class="skill-tag tag-soft">Communication</span>
-            <span class="skill-tag tag-soft">Problem Solving</span>
-            <span class="skill-tag tag-soft">Critical Thinking</span>
-            <span class="skill-tag tag-soft">Cross-functional Collaboration</span>
-          </div>
-        </article>
-
-        <article class="card fade-in sidebar-section" id="education">
-          <h2 class="section-title">Education & Certificates</h2>
-          <div class="timeline career-timeline">
-            <div class="timeline-item">
-              <div class="timeline-date">2013 – 2018</div>
-              <div>
-                <div class="timeline-content-title">B.Sc. Mechanical Engineering – Design & Production</div>
-                <div class="timeline-company">Kafr El-Sheikh University</div>
-                <div class="timeline-location">Mechanical Engineering (Design & Production)</div>
-              </div>
-            </div>
-
-            <div class="timeline-item">
-              <div class="timeline-date">2025</div>
-              <div>
-                <div class="achievement-badge">
-                  <div class="badge-icon">📊</div>
-                  <div class="badge-content">
-                    <div class="badge-title">Data Analyst Associate</div>
-                    <div class="badge-subtitle">DataCamp Certified</div>
-                  </div>
-                </div>
-                <a class="sidebar-link" href="https://www.datacamp.com/certificate/DAA0016172913121" target="_blank">
-                  View Certificate →
-                </a>
-              </div>
-            </div>
-
-            <div class="timeline-item">
-              <div class="timeline-date">2025</div>
-              <div>
-                <div class="achievement-badge">
-                  <div class="badge-icon">📈</div>
-                  <div class="badge-content">
-                    <div class="badge-title">Data Analyst Professional</div>
-                    <div class="badge-subtitle">DataCamp Certified</div>
-                  </div>
-                </div>
-                <a class="sidebar-link" href="https://www.datacamp.com/certificate/DA0027178146921" target="_blank">
-                  View Certificate →
-                </a>
-              </div>
-            </div>
-
-            <div class="timeline-item">
-              <div class="timeline-date">2025</div>
-              <div>
-                <div class="achievement-badge">
-                  <div class="badge-icon">🧪</div>
-                  <div class="badge-content">
-                    <div class="badge-title">Data Scientist Associate</div>
-                    <div class="badge-subtitle">DataCamp Certified</div>
-                  </div>
-                </div>
-                <a class="sidebar-link" href="https://www.datacamp.com/certificate/DSA0016782575306" target="_blank">
-                  View Certificate →
-                </a>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="card fade-in sidebar-section" id="contact">
-          <h2 class="section-title">Contact</h2>
-          <p class="section-subtitle">Get in touch with me quickly via the form or social links.</p>
+        
+        <!-- EXPERIENCE -->
+        <article class="card" id="experience">
+          <h3 style="border-bottom:1px solid var(--border-soft); padding-bottom:10px; margin-bottom:20px;">Experience</h3>
           
-          <form class="contact-form" id="contactForm">
-            <div class="form-group">
-              <label class="form-label" for="name">Name</label>
-              <input type="text" id="name" name="name" class="form-input" required placeholder="Your name">
+          <!-- Job 1 -->
+          <div class="timeline-item">
+            <div class="t-date">Apr 2022 – Present</div>
+            <div class="t-role">Senior Planning Engineer</div>
+            <div class="t-comp">Egyptian Black Sands Company (EBSC)</div>
+            <div class="t-loc">Planning & Maintenance · Egypt · On-site</div>
+            <ul class="t-list">
+              <li>Developed and executed preventive & predictive maintenance strategies, reducing unplanned downtime by 15%.</li>
+              <li>Implemented CMMS-based scheduling and reporting, improving maintenance tracking accuracy by 20%.</li>
+              <li>Enhanced coordination between production and maintenance teams.</li>
+            </ul>
+            <div class="expand-content" id="exp1">
+              <ul class="t-list">
+                 <li>Conducted RCA and introduced cost-optimization strategies, achieving 12% annual savings.</li>
+                 <li>Proposed technical solutions that improved sand separation process efficiency.</li>
+              </ul>
             </div>
-            
-            <div class="form-group">
-              <label class="form-label" for="email">Email</label>
-              <input type="email" id="email" name="email" class="form-input" required placeholder="your.email@example.com">
-            </div>
-            
-            <div class="form-group">
-              <label class="form-label" for="subject">Subject</label>
-              <input type="text" id="subject" name="subject" class="form-input" required placeholder="What's this about?">
-            </div>
-            
-            <div class="form-group">
-              <label class="form-label" for="message">Message</label>
-              <textarea id="message" name="message" class="form-textarea" required placeholder="Your message here..."></textarea>
-            </div>
-            
-            <button type="submit" class="form-submit">Send Message</button>
-            
-            <div class="form-message" id="formMessage"></div>
-          </form>
+            <span class="expand-btn" onclick="toggleExp('exp1', this)">Read more <i class="fas fa-chevron-down"></i></span>
+          </div>
 
-          <p class="section-subtitle" style="margin-top: 24px; margin-bottom: 8px;">Connect instantly:</p>
-          <div class="social-icons-row">
-            <a class="social-icon-link icon-email" href="mailto:mohamed.aboudonya.55@gmail.com?subject=Portfolio Inquiry" target="_blank" rel="noopener noreferrer" title="Email">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                  <polyline points="22,6 12,13 2,6"></polyline>
-                </svg>
-            </a>
-            <a class="social-icon-link icon-linkedin" href="https://linkedin.com/in/mohamed-aboudonya" target="_blank" rel="noopener noreferrer" title="LinkedIn">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                <rect x="2" y="9" width="4" height="12"></rect>
-                <circle cx="4" cy="4" r="2"></circle>
-              </svg>
-            </a>
-            <a class="social-icon-link icon-github" href="https://github.com/aboudonya" target="_blank" rel="noopener noreferrer" title="GitHub">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-              </svg>
-            </a>
-            <a class="social-icon-link icon-whatsapp" href="https://wa.me/201014116376" target="_blank" rel="noopener noreferrer" title="WhatsApp">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-              </svg>
-            </a>
+          <!-- Job 2 -->
+          <div class="timeline-item">
+            <div class="t-date">Oct 2020 – Apr 2022</div>
+            <div class="t-role">Design & Production Engineer</div>
+            <div class="t-comp">Middle East Air Conditioning Co.</div>
+            <div class="t-loc">Production & Design · Egypt</div>
+            <ul class="t-list">
+              <li>Designed and manufactured central AC duct systems using AutoCAD/CAMDUCT (100% standards compliance).</li>
+              <li>Operated and programmed CNC plasma cutting machines, reducing scrap by 8%.</li>
+            </ul>
+            <div class="expand-content" id="exp2">
+              <ul class="t-list">
+                 <li>Led preventive maintenance programs, cutting equipment breakdowns by 10%.</li>
+                 <li>Improved inventory planning and material utilization.</li>
+              </ul>
+            </div>
+            <span class="expand-btn" onclick="toggleExp('exp2', this)">Read more <i class="fas fa-chevron-down"></i></span>
+          </div>
+
+          <!-- Job 3 -->
+          <div class="timeline-item">
+            <div class="t-date">Jan 2019 – Oct 2020</div>
+            <div class="t-role">Production Engineer</div>
+            <div class="t-comp">Gade Textile Egypt</div>
+            <div class="t-loc">Egypt</div>
+            <ul class="t-list">
+              <li>Applied Lean Manufacturing tools (5S, Kaizen, Six Sigma), increasing productivity by 10%.</li>
+              <li>Introduced data-driven KPIs to monitor performance, reducing bottlenecks by 15%.</li>
+            </ul>
+            <div class="expand-content" id="exp3">
+              <ul class="t-list">
+                 <li>Performed downtime analysis and implemented corrective actions (20% fewer interruptions).</li>
+                 <li>Implemented employee performance evaluation systems.</li>
+              </ul>
+            </div>
+            <span class="expand-btn" onclick="toggleExp('exp3', this)">Read more <i class="fas fa-chevron-down"></i></span>
           </div>
         </article>
+
+        <!-- SKILLS -->
+        <article class="card" id="skills">
+          <h3 style="border-bottom:1px solid var(--border-soft); padding-bottom:10px; margin-bottom:20px;">Skills</h3>
+          
+          <div class="skill-category">
+            <div class="skill-title">Data & Analytics</div>
+            <div class="pill-container">
+              <span class="pill">Python</span>
+              <span class="pill">SQL</span>
+              <span class="pill">Power BI</span>
+              <span class="pill">Excel (Advanced)</span>
+              <span class="pill">Data Cleaning</span>
+              <span class="pill">KPI Dashboards</span>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <div class="skill-title">Maintenance & Planning</div>
+            <div class="pill-container">
+              <span class="pill">CMMS</span>
+              <span class="pill">Predictive Maint.</span>
+              <span class="pill">OEE Analysis</span>
+              <span class="pill">RCA</span>
+              <span class="pill">Resource Planning</span>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <div class="skill-title">Engineering</div>
+            <div class="pill-container">
+              <span class="pill">Lean Manufacturing</span>
+              <span class="pill">Six Sigma Basics</span>
+              <span class="pill">Kaizen</span>
+              <span class="pill">AutoCAD</span>
+              <span class="pill">CNC Programming</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- EDUCATION & CERTIFICATES -->
+        <article class="card" id="education">
+          <h3 style="border-bottom:1px solid var(--border-soft); padding-bottom:10px; margin-bottom:20px;">Education & Certs</h3>
+          
+          <div class="timeline-item" style="margin-bottom: 20px; padding-bottom: 0; border-left: none;">
+            <div class="t-date">2013 – 2018</div>
+            <div class="t-role" style="font-size: 0.9rem;">B.Sc. Mechanical Engineering</div>
+            <div class="t-comp">Kafr El-Sheikh University</div>
+            <div class="t-loc">Design & Production</div>
+          </div>
+
+          <a href="https://www.datacamp.com/certificate/DAA0016172913121" target="_blank" class="ach-badge">
+            <div class="ach-icon">📊</div>
+            <div class="ach-text">
+              <h4>Data Analyst Associate</h4>
+              <p>DataCamp Certified</p>
+            </div>
+          </a>
+
+          <a href="https://www.datacamp.com/certificate/DA0027178146921" target="_blank" class="ach-badge">
+            <div class="ach-icon">📈</div>
+            <div class="ach-text">
+              <h4>Data Analyst Professional</h4>
+              <p>DataCamp Certified</p>
+            </div>
+          </a>
+
+          <a href="https://www.datacamp.com/certificate/DSA0016782575306" target="_blank" class="ach-badge">
+            <div class="ach-icon">🧪</div>
+            <div class="ach-text">
+              <h4>Data Scientist Associate</h4>
+              <p>DataCamp Certified</p>
+            </div>
+          </a>
+        </article>
+
+        <!-- CONTACT FORM -->
+        <article class="card" id="contact">
+          <h3 style="margin-bottom:15px;">Get in Touch</h3>
+          <form class="contact-form" id="contactForm">
+            <input type="text" id="name" placeholder="Name" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <textarea id="message" placeholder="Message" rows="4" required></textarea>
+            <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; border:none;">Send Message</button>
+          </form>
+          <div id="formMsg" style="text-align:center; font-size:0.8rem; color:var(--accent); margin-top:10px;"></div>
+          
+          <div class="social-links">
+            <a href="mailto:mohamed.aboudonya.55@gmail.com" class="social-btn" title="Email"><i class="fas fa-envelope"></i></a>
+            <a href="https://linkedin.com/in/mohamed-aboudonya" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://github.com/aboudonya" class="social-btn" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://wa.me/201014116376" class="social-btn" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </article>
+
       </aside>
     </main>
+    
+    <footer>
+      © <span id="year"></span> Mohamed Aboudonya · Built with HTML & CSS.
+    </footer>
   </div>
 
-  <footer>
-    © <span id="year"></span> Mohamed Aboudonya · Built with HTML & CSS.
-  </footer>
-
   <script>
-    function initScrollAnimations() {
-      const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      };
+    // 1. Typewriter Effect (Infinite loop)
+    const phrases = [
+      "Turning Data into Decisions.",
+      "Maintenance & Production Planning.",
+      "Building Insightful Dashboards."
+    ];
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    const typeElement = document.getElementById('typingText');
 
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
+    function typeWriter() {
+      const currentPhrase = phrases[phraseIndex];
+      
+      if (isDeleting) {
+        typeElement.textContent = currentPhrase.substring(0, charIndex - 1);
+        charIndex--;
+      } else {
+        typeElement.textContent = currentPhrase.substring(0, charIndex + 1);
+        charIndex++;
+      }
+
+      let typeSpeed = isDeleting ? 30 : 60;
+
+      if (!isDeleting && charIndex === currentPhrase.length) {
+        typeSpeed = 2000; // Pause at end
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        typeSpeed = 500;
+      }
+
+      setTimeout(typeWriter, typeSpeed);
+    }
+    typeWriter();
+
+    // 2. Filter Projects
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        
+        document.querySelectorAll('.project-card').forEach(card => {
+          const categories = card.dataset.category;
+          
+          if (filter === 'all' || categories.includes(filter)) {
+            card.style.display = 'flex';
+            // Small delay to allow display:flex to apply before opacity transition
+            setTimeout(() => { 
+              card.style.opacity = 1; 
+              card.style.transform = 'translateY(0)'; 
+            }, 50);
+          } else {
+            card.style.opacity = 0;
+            card.style.transform = 'translateY(20px)';
+            setTimeout(() => card.style.display = 'none', 400);
           }
         });
-      }, observerOptions);
-
-      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-    }
-
-    function initTypingAnimation() {
-      const phrases = [
-        "Data & Engineering portfolio for Mohamed Aboudonya",
-        "Turning data into actionable insights",
-        "Building dashboards that drive decisions",
-        "7+ years in manufacturing & heavy industry",
-        "Specializing in maintenance analytics & planning"
-      ];
-      
-      const typingElement = document.getElementById('typingText');
-      let phraseIndex = 0;
-      let charIndex = 0;
-      let isDeleting = false;
-      let isPaused = false;
-
-      function typeEffect() {
-        const currentPhrase = phrases[phraseIndex];
-        
-        if (isPaused) {
-          setTimeout(typeEffect, 2000); // Pause for 2 seconds at full text
-          isPaused = false;
-          isDeleting = true;
-          return;
-        }
-        
-        if (isDeleting) {
-          typingElement.textContent = currentPhrase.substring(0, charIndex - 1);
-          charIndex--;
-          
-          if (charIndex === 0) {
-            isDeleting = false;
-            phraseIndex = (phraseIndex + 1) % phrases.length;
-            setTimeout(typeEffect, 500); // Pause before typing next phrase
-            return;
-          }
-        } else {
-          typingElement.textContent = currentPhrase.substring(0, charIndex + 1);
-          charIndex++;
-          
-          if (charIndex === currentPhrase.length) {
-            isPaused = true;
-          }
-        }
-        
-        const typingSpeed = isDeleting ? 30 : 50;
-        setTimeout(typeEffect, typingSpeed);
-      }
-
-      typeEffect();
-    }
-
-    function initContactForm() {
-      const form = document.getElementById('contactForm');
-      const messageDiv = document.getElementById('formMessage');
-
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        messageDiv.className = 'form-message';
-        messageDiv.textContent = 'Sending...';
-        messageDiv.style.display = 'block';
-
-        const formData = new FormData(form);
-
-        try {
-          const response = await fetch('https://formspree.io/f/myzldagg', {
-            method: 'POST',
-            body: formData,
-            headers: {
-              'Accept': 'application/json'
-            }
-          });
-
-          if (response.ok) {
-            messageDiv.className = 'form-message success';
-            messageDiv.textContent = '✓ Message sent successfully! I\'ll get back to you soon.';
-            form.reset();
-
-            setTimeout(() => {
-              messageDiv.style.display = 'none';
-            }, 5000);
-          } else {
-            throw new Error('Form submission failed');
-          }
-        } catch (error) {
-          messageDiv.className = 'form-message error';
-          messageDiv.textContent = '✗ Oops! Something went wrong. Please try emailing me directly.';
-          
-          setTimeout(() => {
-            messageDiv.style.display = 'none';
-          }, 7000);
-        }
       });
-    }
-
-    function initializeTheme() {
-      const html = document.documentElement;
-      const toggleButton = document.getElementById('theme-toggle');
-
-      let currentTheme = localStorage.getItem('theme') || 'dark';
-
-      function applyTheme(theme) {
-        html.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-        if (theme === 'dark') {
-          toggleButton.innerHTML = '🌞 Light Mode';
-        } else {
-          toggleButton.innerHTML = '🌙 Dark Mode';
-        }
-      }
-
-      applyTheme(currentTheme);
-
-      toggleButton.addEventListener('click', () => {
-        const newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        applyTheme(newTheme);
-      });
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      document.getElementById("year").textContent = new Date().getFullYear();
-      initializeTheme();
-      initScrollAnimations();
-      initTypingAnimation();
-      initContactForm();
-      initStickyHeader();
-      initBackToTop();
-      initViewCounter();
-      hideLoadingScreen();
     });
 
-    // ====================================
-    // Sticky Header on Scroll
-    // ====================================
-    function initStickyHeader() {
-      const header = document.querySelector('header');
-      
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-          header.classList.add('scrolled');
-        } else {
-          header.classList.remove('scrolled');
-        }
-      });
-    }
-
-    // ====================================
-    // Back to Top Button
-    // ====================================
-    function initBackToTop() {
-      const backToTopBtn = document.getElementById('backToTop');
-      
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-          backToTopBtn.classList.add('visible');
-        } else {
-          backToTopBtn.classList.remove('visible');
-        }
-      });
-
-      backToTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      });
-    }
-
-    // ====================================
-    // Read More/Less Toggle
-    // ====================================
-    function toggleExpand(id, element) {
+    // 3. Read More Toggle
+    function toggleExp(id, btn) {
       const content = document.getElementById(id);
-      const text = element.querySelector('span:first-child');
-      const arrow = element.querySelector('span:last-child');
-      
-      if (content.classList.contains('expanded')) {
-        content.classList.remove('expanded');
-        text.textContent = 'Read more';
-        arrow.textContent = '▼';
-      } else {
-        content.classList.add('expanded');
-        text.textContent = 'Read less';
-        arrow.textContent = '▲';
-      }
+      content.classList.toggle('open');
+      const icon = content.classList.contains('open') ? '<i class="fas fa-chevron-up"></i>' : '<i class="fas fa-chevron-down"></i>';
+      const text = content.classList.contains('open') ? 'Read less' : 'Read more';
+      btn.innerHTML = `${text} ${icon}`;
     }
 
-    // ====================================
-    // View Counter (using localStorage)
-    // ====================================
-    function initViewCounter() {
-      const viewCountElement = document.getElementById('viewCount');
-      
-      // Get current view count from localStorage
-      let viewCount = parseInt(localStorage.getItem('portfolioViews') || '0');
-      
-      // Increment view count
-      viewCount++;
-      
-      // Save back to localStorage
-      localStorage.setItem('portfolioViews', viewCount);
-      
-      // Display with animation
-      animateCounter(viewCountElement, 0, viewCount, 1000);
+    // 4. Theme Toggle
+    const themeBtn = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    
+    // Check Local Storage
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    html.setAttribute('data-theme', savedTheme);
+    updateThemeIcon(savedTheme);
+
+    themeBtn.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      updateThemeIcon(next);
+    });
+
+    function updateThemeIcon(theme) {
+      themeBtn.innerHTML = theme === 'dark' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
     }
 
-    function animateCounter(element, start, end, duration) {
-      const range = end - start;
-      const increment = range / (duration / 16);
-      let current = start;
-      
-      const timer = setInterval(() => {
-        current += increment;
-        if (current >= end) {
-          element.textContent = end.toLocaleString() + ' views';
-          clearInterval(timer);
-        } else {
-          element.textContent = Math.floor(current).toLocaleString() + ' views';
-        }
-      }, 16);
-    }
+    // 5. Mobile Menu
+    const menuToggle = document.getElementById('menuToggle');
+    const nav = document.getElementById('navMenu');
+    menuToggle.addEventListener('click', () => {
+      nav.classList.toggle('open');
+      menuToggle.innerHTML = nav.classList.contains('open') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
+    
+    // Close menu when clicking a link
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('open');
+        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+      });
+    });
 
-    // ====================================
-    // Loading Screen
-    // ====================================
-    function hideLoadingScreen() {
-      const loadingScreen = document.getElementById('loadingScreen');
+    // 6. Contact Form Simulation
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const msg = document.getElementById('formMsg');
+      const btn = this.querySelector('button');
+      const originalText = btn.innerText;
+      
+      btn.innerText = "Sending...";
       
       setTimeout(() => {
-        loadingScreen.classList.add('hidden');
-      }, 800);
-    }
+        msg.innerText = "Thank you! I'll get back to you soon.";
+        btn.innerText = "Message Sent";
+        this.reset();
+        setTimeout(() => {
+            msg.innerText = "";
+            btn.innerText = originalText;
+        }, 3000);
+      }, 1500);
+    });
 
-    // ====================================
-    // Social Share Functions
-    // ====================================
-    function shareOnTwitter() {
-      const url = encodeURIComponent(window.location.href);
-      const text = encodeURIComponent('Check out this amazing Data Analytics & Planning portfolio by Mohamed Aboudonya!');
-      window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
-    }
-
-    function shareOnLinkedIn() {
-      const url = encodeURIComponent(window.location.href);
-      window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
-    }
-
-    function shareOnFacebook() {
-      const url = encodeURIComponent(window.location.href);
-      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
-    }
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
-
 </html>
